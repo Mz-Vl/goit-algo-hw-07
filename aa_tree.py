@@ -61,10 +61,18 @@ class AATree:
             node = node.left
         return node.key
 
-    def sum_node_values(self):
-        node = self.root
-        sum = 0
-        while node is not None:
-            sum += node.key
-            node = node.right
-        return sum
+    def sum_node_values(self, node=None):
+        if node is None:
+            node = self.root
+
+        if node is not None:
+            left_sum = self.sum_node_values(node.left) if node.left is not None else 0
+
+            current_value = node.key
+
+            right_sum = self.sum_node_values(node.right) if node.right is not None else 0
+
+            total_sum = left_sum + current_value + right_sum
+            return total_sum
+        else:
+            return 0
